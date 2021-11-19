@@ -1,0 +1,69 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.5 (swiftlang-1300.0.31.1 clang-1300.0.29.1)
+// swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Hodor
+import AVFoundation
+import AgoraRtcEngineKit
+import AgoraRtmKit
+import Foundation
+@_exported import Hodor
+import Swift
+import UIKit
+import WebKit
+import _Concurrency
+@objc(HodorEnvironment) public enum Environment : Swift.Int {
+  case development
+  case production
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension Hodor.WebViewSession {
+  @objc public static func newWebViewSession(environment: Hodor.Environment, userID: Swift.UInt, url: Foundation.URL? = nil) -> Hodor.WebViewSession
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(HodorWebViewSession) final public class WebViewSession : ObjectiveC.NSObject {
+  @objc final public let environment: Hodor.Environment
+  @objc final public let webViewController: Hodor.WebViewController
+  @objc required public init(environment: Hodor.Environment, userID: Swift.UInt, url: Foundation.URL?)
+  @objc final public func destroy()
+  @objc deinit
+}
+@objc(HodorLogLevel) public enum LogLevel : Swift.Int {
+  case verbose
+  case info
+  case error
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(HodorLogger) public protocol Logger {
+  @objc func log(_ level: Hodor.LogLevel, _ message: Swift.String)
+}
+@_hasMissingDesignatedInitializers @objc(HodorWebViewController) @_Concurrency.MainActor(unsafe) public class WebViewController : UIKit.UIViewController {
+  @objc @_Concurrency.MainActor(unsafe) public var request: Foundation.URLRequest? {
+    get
+  }
+  @objc @_Concurrency.MainActor(unsafe) final public let webView: WebKit.WKWebView
+  @objc(loadWithURL:) @_Concurrency.MainActor(unsafe) public func load(url: Foundation.URL)
+  @objc @_Concurrency.MainActor(unsafe) public func load(request: Foundation.URLRequest)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidDisappear(_ animated: Swift.Bool)
+  @objc deinit
+}
+extension Hodor.WebViewController : WebKit.WKNavigationDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func webView(_ webView: WebKit.WKWebView, didStartProvisionalNavigation navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: Swift.Error)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFailProvisionalNavigation navigation: WebKit.WKNavigation!, withError error: Swift.Error)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+}
+extension Hodor.Environment : Swift.Equatable {}
+extension Hodor.Environment : Swift.Hashable {}
+extension Hodor.Environment : Swift.RawRepresentable {}
+extension Hodor.LogLevel : Swift.Equatable {}
+extension Hodor.LogLevel : Swift.Hashable {}
+extension Hodor.LogLevel : Swift.RawRepresentable {}

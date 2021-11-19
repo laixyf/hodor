@@ -1,0 +1,11 @@
+framework module Hodor {
+  umbrella header "Hodor-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module Hodor.Swift {
+    header "Hodor-Swift.h"
+    requires objc
+}
